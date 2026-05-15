@@ -83,10 +83,36 @@ em { font-style: italic; }
   z-index: 50;
 }
 .mast-left { display: flex; align-items: center; gap: 10px; }
-.mast-center { text-align: center; font-weight: 500; color: var(--ink); }
+.mast-center { text-align: center; }
 .mast-right { text-align: right; }
 .mast-right a { color: var(--ink-soft); border-bottom: none; }
 .mast-right a:hover { color: var(--accent); }
+
+/* Language switcher in the masthead */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+}
+.lang-switch a, .lang-switch span {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border-bottom: none;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  color: var(--ink-soft);
+  transition: background 0.2s, color 0.2s;
+}
+.lang-switch a:hover {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.lang-switch .current {
+  background: var(--ink);
+  color: var(--paper);
+}
 
 .meta-dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -97,6 +123,17 @@ em { font-style: italic; }
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.45; transform: scale(0.85); }
+}
+
+/* On small screens, masthead becomes more compact */
+@media (max-width: 640px) {
+  .masthead {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 18px var(--gutter);
+  }
+  .mast-center { grid-column: 1 / -1; order: 3; text-align: center; }
+  .mast-left { font-size: 10px; }
 }
 
 /* =========================================================
@@ -512,6 +549,29 @@ h1.display em {
 .links a {
   font-size: 16px;
   word-break: break-word;
+}
+
+/* Wikipedia row: three language sub-links inline */
+.wiki-langs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.wiki-langs a {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.wiki-langs a:hover {
+  background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
 }
 
 /* =========================================================

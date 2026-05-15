@@ -1,69 +1,97 @@
 # Dariusz Jemielniak - personal site
 
-A single-page static site. Three files of source (`index.html`, `styles.css`, `script.js`) plus one photo in `assets/`. No build step. Vercel serves it as-is.
+A trilingual static site (English, Polish, German). Shared CSS and JS, one photo, three HTML files. No build step. Vercel serves it as-is.
 
-## What to edit before deploying
+## URLs once live
 
-Open `index.html` and check:
+- `/` - English (default)
+- `/pl/` - Polski
+- `/de/` - Deutsch
 
-1. **Email address** (line near the bottom, in the contact section). The placeholder is `darekj@kozminski.edu.pl` - replace if needed.
-2. **Roles** in the hero (lines 50-56 area) - update if anything changed.
-3. **Books and papers** - already populated from the CV (December 2025 version).
-4. **Photo** - already in `assets/portrait.jpg`. To replace, drop a new file in the same place with the same name.
+The language switcher in the masthead links between them. Each version sets the right `<html lang="...">` and includes `hreflang` tags so search engines understand the alternates.
 
-That's it. No other edits required.
+## Before deploying
+
+Open the three `index.html` files (root, `pl/`, `de/`) and check:
+
+1. **Email address** in the contact section. The placeholder is `darekj@kozminski.edu.pl` in all three - change if needed.
+2. **Wikipedia links**: the EN and PL Wikipedia articles are confirmed to exist. The DE Wikipedia link points to `https://de.wikipedia.org/wiki/Dariusz_Jemielniak` but I could not verify the German article actually exists yet. If it doesn't, the link will lead to a "create article" page on de.wikipedia. Either remove that link from all three files or use it as motivation to ask a German Wikipedian to create the article.
+3. **Roles** in the hero (each language) - update if anything changed.
+4. **Photo** - `assets/portrait.jpg`. Replace by overwriting that file (same name).
+
+## File map
+
+```
+jemielniak-site/
+├── index.html          # English (root)
+├── pl/
+│   └── index.html      # Polish
+├── de/
+│   └── index.html      # German
+├── styles.css          # shared design (referenced as ../styles.css from subfolders)
+├── script.js           # shared JS (referenced as ../script.js from subfolders)
+├── assets/
+│   └── portrait.jpg    # photo
+├── .gitignore
+└── README.md
+```
 
 ## Deploying via GitHub (web only, no CLI)
 
 ### 1. Create the repository
 
 1. Go to [github.com/new](https://github.com/new).
-2. Repository name: `jemielniak-site` (or anything you prefer).
-3. Set to **Public** (Vercel's free tier works with public repos).
-4. Leave the rest unchecked. Click *Create repository*.
+2. Repository name: `jemielniak-site` (or anything).
+3. Set to **Public**.
+4. Click *Create repository*.
 
 ### 2. Upload the files
 
-On the new empty repo page:
+On the new empty-repo page:
 
-1. Click *uploading an existing file* (the link in the middle of the page).
-2. Drag in **all four items**: `index.html`, `styles.css`, `script.js`, and the `assets/` folder (or upload `assets/portrait.jpg` directly - GitHub will create the folder).
-3. Scroll down. Commit message: "initial commit".
-4. Click *Commit changes*.
+1. Click *uploading an existing file*.
+2. Drag in everything from the unzipped folder: `index.html`, `styles.css`, `script.js`, `README.md`, `.gitignore`, the `assets/` folder, the `pl/` folder, and the `de/` folder. GitHub preserves folder structure when you drag from your file explorer.
+3. Commit with message "initial commit".
+
+If GitHub's web uploader balks at folders, use the CLI alternative below.
 
 ### 3. Deploy on Vercel
 
-1. Go to [vercel.com/new](https://vercel.com/new) (sign in with GitHub if asked).
-2. *Import* the repository you just made.
-3. Vercel will auto-detect it as a static site. Don't change any settings.
-4. Click *Deploy*.
+1. Go to [vercel.com/new](https://vercel.com/new) (sign in with GitHub).
+2. *Import* the repository.
+3. Vercel auto-detects a static site. Keep defaults.
+4. *Deploy*.
 
-In ~20 seconds you'll have a live URL like `jemielniak-site.vercel.app`. Vercel will redeploy automatically every time you push a change to GitHub.
+You'll have a live URL in ~20 seconds. Every later commit triggers a fresh deploy.
 
 ### 4. Custom domain (optional)
 
-In the Vercel project: *Settings → Domains → Add*. Vercel will give you DNS records to point your domain at.
+Vercel project settings → Domains → Add. Vercel gives you DNS records to point your domain at.
 
-## File map
+## CLI alternative for upload (if web uploader struggles with folders)
 
+```bash
+cd jemielniak-site
+git init
+git add .
+git commit -m "initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/jemielniak-site.git
+git push -u origin main
 ```
-jemielniak-site/
-├── index.html        # all content lives here
-├── styles.css        # all design lives here
-├── script.js         # scroll reveal + year stamp
-├── assets/
-│   └── portrait.jpg  # the photo
-└── README.md         # this file
-```
+
+## Editing the live site
+
+Use GitHub's pencil-icon editor on each `index.html` to make text changes. Each commit auto-deploys via Vercel. To edit all three language versions consistently, edit each `index.html` file in turn.
+
+## Translation notes
+
+The Polish and German translations preserve book titles in their original (mostly English) form, since those are the published canonical titles. Section labels, role descriptions, and prose paragraphs are fully translated. Place names follow the conventional rendering of each language (Warsaw / Warszawa / Warschau).
 
 ## Design notes
 
-- Fonts are loaded from Google Fonts (Fraunces for display, Inter Tight for body, JetBrains Mono for tags). No self-hosting needed.
-- Color palette: warm paper background, ink text, cinnabar accent.
-- Responsive down to ~360px.
-- Honors `prefers-reduced-motion` for the scroll reveals.
-- No tracking, no cookies, no external scripts apart from Google Fonts.
-
-## Editing later
-
-To change copy, edit `index.html` on GitHub directly (pencil icon on the file page). Each commit triggers a fresh Vercel deploy in under a minute.
+- Fonts loaded from Google Fonts (Fraunces, Inter Tight, JetBrains Mono).
+- Color palette: warm paper, ink, cinnabar accent.
+- Responsive to ~360px.
+- Honors `prefers-reduced-motion`.
+- No tracking, no cookies, no external scripts other than Google Fonts.
