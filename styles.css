@@ -621,3 +621,18 @@ h1.display em {
   background: var(--accent);
   color: var(--paper);
 }
+
+/* Wikipedia pills under the hero roles */
+.hero-wiki {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 0;
+}
+.hero-wiki-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
